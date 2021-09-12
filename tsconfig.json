@@ -1,20 +1,14 @@
 {
-    "compilerOptions": {
-      "module": "commonjs",
-      "jsx": "preserve",
-      "esModuleInterop": true,
-      "sourceMap": true,
-      "allowJs": true,
-      "lib": [
-        "ES2019",
-        "dom"
-      ],
-      "rootDir": "src",
-      "outDir": "dist",
-      "moduleResolution": "node"
-    },
-    "exclude": [
-      "./.cache/**/*",
-      "./dist/**/*"
-    ]
-  }
+  "compilerOptions": {
+    "module": "commonjs",
+    "jsx": "preserve",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "allowJs": true,
+    "lib": ["ES2019", "dom"],
+    "rootDir": "src",
+    "outDir": "dist",
+    "moduleResolution": "node"
+  },
+  "exclude": ["./.cache/**/*", "./dist/**/*"]
+}
