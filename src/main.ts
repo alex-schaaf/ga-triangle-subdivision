@@ -14,14 +14,12 @@ const height = width * Math.sqrt(2) + padding
 
 const drawStrokes = true
 const drawFaces = true
+const nInitialPoints = 1
 
-const colorPalette = [
-  "#E23E57",
-  "#88304E",
-  "#522546",
-  "#311D3F",
-  // "#B1B1B1", "#444444", "#0A0708"
-].map((hex) => hexToHSL(hex))
+const pinks = ["#E23E57", "#88304E", "#522546", "#311D3F"]
+const blues = ["#071330", "#0C4160", "#738FA7", "#C3CEDA"]
+
+const colorPalette = [...pinks, ...blues].map((hex) => hexToHSL(hex))
 
 function generateInitialTriangles(): Triangle[] {
   let triangles: Triangle[] = []
@@ -41,8 +39,7 @@ function generateInitialTriangles(): Triangle[] {
 
 const sketch = (p: p5) => {
   let nIter = 0
-  // let triangles = generateInitialTriangles()
-  const nInitialPoints = 1
+
   let triangles = generateInitialStateDelaunay(
     nInitialPoints,
     width,
