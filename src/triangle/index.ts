@@ -11,10 +11,13 @@ export interface Triangle {
   C: Point
 }
 
-export function subdivideTriangle(triangle: Triangle): Triangle[] {
+export function subdivideTriangle(
+  triangle: Triangle,
+  width: number
+): Triangle[] {
   const [P1, P2] = getLongestSidePoints(triangle)
   const P3 = Object.keys(triangle).filter((key) => key !== P1 && key !== P2)[0]
-  const D = getMidpoint(triangle[P1], triangle[P2])
+  const D = getMidpoint(triangle[P1], triangle[P2], width)
 
   return [
     { A: triangle[P1], B: triangle[P3], C: D } as Triangle,
@@ -22,9 +25,9 @@ export function subdivideTriangle(triangle: Triangle): Triangle[] {
   ]
 }
 
-function getMidpoint(A: Point, B: Point): Point {
-  // const rand = 0
-  const rand = (Math.random() - 0.5) * 22
+function getMidpoint(A: Point, B: Point, width: number): Point {
+  // const rand = 0s
+  const rand = ((Math.random() - 0.5) * width) / 36
   return { x: (A.x + B.x) / 2 + rand, y: (A.y + B.y) / 2 + rand }
 }
 

@@ -8,8 +8,8 @@ import {
   subdivideTriangle,
 } from "./triangle"
 
-const padding = 50
-const width = 800 + padding
+const width = 2480 + 2480 * 0.0625
+const padding = width * 0.0625
 const height = width * Math.sqrt(2) + padding
 
 const drawStrokes = true
@@ -20,6 +20,8 @@ const pinks = ["#E23E57", "#88304E", "#522546", "#311D3F"]
 const blues = ["#071330", "#0C4160", "#738FA7", "#C3CEDA"]
 
 const colorPalette = [...pinks, ...blues].map((hex) => hexToHSL(hex))
+
+const seed: number | null = 1
 
 function generateInitialTriangles(): Triangle[] {
   let triangles: Triangle[] = []
@@ -50,12 +52,17 @@ const sketch = (p: p5) => {
   p.setup = () => {
     const canvas = p.createCanvas(width + 10, height + 10)
     canvas.parent("p5-canvas")
-
+    p.background(255, 255, 255)
     p.colorMode(p.HSL)
     p.noFill()
 
     drawStrokes ? p.strokeWeight(0.05) : p.strokeWeight(0)
     p.frameRate(30)
+
+    p.randomSeed(5)
+    p.noiseSeed(5)
+
+    console.log(p.randomSeed)
   }
 
   p.draw = () => {
@@ -67,7 +74,9 @@ const sketch = (p: p5) => {
 
       if (drawFaces) {
         p.fill(
-          h + (p.noise(t.A.x * 0.005, t.A.y * 0.005) - 0.5) * 40,
+          h +
+            (p.noise(t.A.x * width * 0.00001, t.A.y * width * 0.00001) - 0.5) *
+              40,
           s + 10,
           l + 10,
           0.2
@@ -81,7 +90,7 @@ const sketch = (p: p5) => {
       if (Math.random() > 0.8 && nIter > 2) {
         return
       }
-      const subdivided = subdivideTriangle(triangle)
+      const subdivided = subdivideTriangle(triangle, width)
       newTriangles.push(...subdivided)
     })
     triangles = newTriangles
@@ -89,6 +98,7 @@ const sketch = (p: p5) => {
 
     if (nIter > 11) {
       p.noLoop()
+      // p.saveCanvas(new Date().toISOString())
     }
   }
 }
